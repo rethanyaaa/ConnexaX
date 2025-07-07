@@ -1,4 +1,4 @@
-console.log("Loaded routes file from:", import.meta.url);
+ 
 
 import { Router } from "express";
 import { activeCheck } from "../controllers/posts.controller.js";
