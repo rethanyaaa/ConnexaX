@@ -4,8 +4,8 @@ content-Type: application/json
 
 {
   "username": "rethanya88",
-  "password": "123456",
-  "email": "rethanya@example.com",
+  "password": "1234567",
+  "email": "rethanya@examplee.com",
   "name": "Rethanya"
 }
 
@@ -15,6 +15,15 @@ POST http://localhost:8000/login HTTP/1.1
 content-Type: application/json
 
 {
-"email": "rethanya@example.com",
-  "password": "123456"
+"email": "rethanya@examplee.com",
+  "password": "1234567"
+}
+
+### LOGIN
+
+POST http://localhost:8000/get_user_and_profile HTTP/1.1
+content-Type: application/json
+
+{
+"token": "5ad9b04258173002930f632f8ce667f99e483574ec76b7c5697f8fd440ba0e4f"
 }
