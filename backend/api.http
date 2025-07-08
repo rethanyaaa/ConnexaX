@@ -1,0 +1,20 @@
+ ### Register User
+POST http://localhost:8000/register HTTP/1.1
+content-Type: application/json
+
+{
+  "username": "rethanya88",
+  "password": "123456",
+  "email": "rethanya@example.com",
+  "name": "Rethanya"
+}
+
+### LOGIN
+
+POST http://localhost:8000/login HTTP/1.1
+content-Type: application/json
+
+{
+"email": "rethanya@example.com",
+  "password": "123456"
+}
