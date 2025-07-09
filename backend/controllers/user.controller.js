@@ -29,6 +29,8 @@ export const register = async (req, res) => {
 
     const profile = new Profile({ userId: newUser._id });
 
+    await profile.save();
+
     return res.json({ message: "User Created" });
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -96,27 +98,79 @@ export const updateUserProfile = async (req, res) => {
 
     await user.save();
 
-    return res.json({message: "User updated"})
+    return res.json({ message: "User updated" });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
 };
 
-export const getUserAndProfile = async(req,res) => {
-  try{
+ export const getUserAndProfile = async (req, res) => {
+  try {
+    // 1. Properly extract token from request body
+    const { token } = req.body;
+    
+    if (!token) {
+      return res.status(400).json({ message: "Token is required" });
+    }
 
-    const token = req.body;
-    const user = User.findOne({ token: token})
-      if (!user) {
+    // 2. Find user with await
+    const user = await User.findOne({ token });
+    
+    if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    const userProfile = await Profile.findOne({ userId: user._id})
-    .populate('userId', 'name email username profilePicture')
 
-    return res.json(userProfile)
+    // 3. Find profile - adjust based on your schema
+    const profile = await Profile.findOne({ userId: user._id });
+    
+    if (!profile) {
+      return res.status(404).json({ message: "Profile not found" });
+    }
+
+    // 4. Return combined data
+    return res.json({
+      profile: profile
+    });
+
+  } catch (error) {
+    console.error("Error in getUserAndProfile:", error);
+    return res.status(500).json({ 
+      message: "Internal server error",
+      error: error.message 
+    });
+  }
+};
+
+export const updateProfileDate = async(req,res) => {
+  try {
+
+    const {token , ...newProfileData} = req.body;
+    const userProfile = await User.findOne({ token: token})
+
+    if (!userProfile) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    const profile_to_update = await Profile.findOne({ userId: userProfile._id})
+
+    Object.assign(profile_to_update, newProfileData)
+    await profile_to_update.save();
+
+    return res.json({ message: "Profile updated"})
+
 
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
-   
+}
+
+export const getAllUserProfile = async(req, res) => {
+  try {
+    const profiles = await Profile.find().populate('userId', 'name username, email profilePicture')
+
+    return res.json({profiles})
+
+  } 
+  catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
 }

@@ -3,9 +3,9 @@ POST http://localhost:8000/register HTTP/1.1
 content-Type: application/json
 
 {
-  "username": "rethanya88",
+  "username": "abc",
   "password": "1234567",
-  "email": "rethanya@examplee.com",
+  "email": "rethanya318@gmail.com",
   "name": "Rethanya"
 }
 
@@ -15,8 +15,8 @@ POST http://localhost:8000/login HTTP/1.1
 content-Type: application/json
 
 {
-"email": "rethanya@examplee.com",
-  "password": "1234567"
+"email": "rethanya318@gmail.com",
+"password": "1234567"
 }
 
 ### LOGIN
@@ -25,5 +25,40 @@ POST http://localhost:8000/get_user_and_profile HTTP/1.1
 content-Type: application/json
 
 {
-"token": "5ad9b04258173002930f632f8ce667f99e483574ec76b7c5697f8fd440ba0e4f"
+  "token": "4b97228a574b3625ca88fcab5c138af9cec775e4413c7860e7630f98b0c92802"
 }
+ 
+
+### update profile data
+POST http://localhost:8000/update_profile_data HTTP/1.1
+content-Type: application/json
+
+ {
+  "token": "68ed16a4674566d9e216a003c9a101e360ea69df40e93a53d2f1e54c30a2a3b7",
+  "profile": {
+    "_id": "686d35b307d9f0caef8ede3c",
+    "userId": "686d35b207d9f0caef8ede3a",
+    "bio": "",
+    "currentPost": "CID",
+    "pastWork": [
+      {
+        "company": "microsoft",
+        "position": "CTO",
+        "years": "23"
+      }
+    ],
+    "education": [
+      {
+        "school": "SNS",
+        "Salary": "34",
+        "years": "23"
+      }
+    ],
+    "__v": 0
+  }
+}
+
+
+GET http://localhost:8000/get_all_users  
+ 
+ 
